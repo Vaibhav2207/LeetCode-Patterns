@@ -297,7 +297,8 @@
 }
 
 12) Binary Search (Topic : Binary Search)
-	Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
+	Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. 
+If target exists, then return its index. Otherwise, return -1.
 
 	You must write an algorithm with O(log n) runtime complexity.
 
@@ -324,8 +325,10 @@
 }
 
 13) Find Smallest Letter Greater Than Target (Topic : Binary Search)
-	You are given an array of characters letters that is sorted in non-decreasing order, and a character target. There are at least two different characters in letters.
-	Return the smallest character in letters that is lexicographically greater than target. If such a character does not exist, return the first character in letters.
+	You are given an array of characters letters that is sorted in non-decreasing order, and a character target. 
+	There are at least two different characters in letters.
+	Return the smallest character in letters that is lexicographically greater than target. 
+	If such a character does not exist, return the first character in letters.
 	Example 1:
 
 	Input: letters = ["c","f","j"], target = "a"
@@ -479,7 +482,8 @@
 
 18) Find All Duplicates in an Array (Topic : Arrays)
 
-	Given an integer array nums of length n where all the integers of nums are in the range [1, n] and each integer appears once or twice, return an array of all the integers that appears twice.
+	Given an integer array nums of length n where all the integers of nums are in the range [1, n] and each integer appears once or twice, 
+	return an array of all the integers that appears twice.
 
 	You must write an algorithm that runs in O(n) time and uses only constant extra space.
 
