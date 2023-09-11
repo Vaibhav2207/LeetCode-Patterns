@@ -34,7 +34,8 @@
     }
 }
 
-3) Find All Numbers Disappeared in an Array : Given an array nums of n integers where nums[i] is in the range [1, n], return an array of all the integers in the range [1, n] that do not appear in nums.
+3) Find All Numbers Disappeared in an Array : Given an array nums of n integers where nums[i] is in the range [1, n], return an array of all the integers in the range [1, n]
+	+that do not appear in nums.
 	Input: nums = [4,3,2,7,8,2,3,1]
 	Output: [5,6]
 	
@@ -1160,7 +1161,204 @@
     }
 }
 
-37)
+37) Permutation in String	(Topic Tags : Sliding Window)
+
+	Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
+
+	In other words, return true if one of s1's permutations is the substring of s2.
+
+	Example 1:
+
+	Input: s1 = "ab", s2 = "eidbaooo"
+	Output: true
+	Explanation: s2 contains one permutation of s1 ("ba").
+	
+	Code :
+	class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+    
+         int[] map = new int[26];
+        for(char c : s1.toCharArray()) map[c - 'a']++;
+        int j = 0, i = 0;
+        int count_chars = s1.length();
+        while(j < s2.length()){
+            if(map[s2.charAt(j++) - 'a']-- > 0)
+                count_chars--;
+            if(count_chars == 0) return true;
+            if(j - i == s1.length() && map[s2.charAt(i++) - 'a']++ >= 0)
+                count_chars++;
+        }
+        return false;
+    }
+}
+
+38) Longest Substring Without Repeating Characters	(Topic Tags : Sliding Window)
+	Given a string s, find the length of the longest 
+	substring without repeating characters.
+
+	Example 1:
+
+	Input: s = "abcabcbb"
+	Output: 3
+	Explanation: The answer is "abc", with the length of 3.
+	
+	Code :
+	class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        
+        int i=0,j=0,res=Integer.MIN_VALUE;
+        HashSet<Character> set = new HashSet<>();
+        while(i < s.length()){
+            if(set.contains(s.charAt(i))){
+                res = Math.max(res,i-j);
+                set.remove(s.charAt(j));
+                j++;
+            }else{
+            set.add(s.charAt(i));
+            i++;
+            }
+        }
+        return Math.max(res,i-j);
+    }
+}
+
+39) Maximum number of vowels in a substring of given length		(Topic Tags : Sliding Window)
+	Given a string s and an integer k, return the maximum number of vowel letters in any substring of s with length k.
+
+	Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.
+
+	Example 1:
+
+	Input: s = "abciiidef", k = 3
+	Output: 3
+	Explanation: The substring "iii" contains 3 vowel letters.
+	
+	Code :
+	class Solution {
+    public int maxVowels(String s, int k) {
+        int end_window=0;
+        int res = 0;
+        while(end_window < k){
+            char ch = s.charAt(end_window);
+            if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u'){
+                res++;
+            }
+            end_window++;
+        }
+        int start_window = 0, len = res;;
+        while(end_window < s.length()){
+            char ch1 = s.charAt(end_window);
+            char ch0 = s.charAt(start_window);
+            
+            if(ch1 == 'a' || ch1 == 'e' || ch1 == 'i' || ch1 == 'o' || ch1 == 'u'){
+                len++;
+            }
+            if(ch0 == 'a' || ch0 == 'e' || ch0 == 'i' || ch0 == 'o' || ch0 == 'u'){
+                len--;
+            } 
+            res = Math.max(res,len);
+            end_window++;
+            start_window++;
+        }
+        return res;
+    }
+}
+
+40) Max Consecutive Ones III	(Topic : Sliding Window)
+	Given a binary array nums and an integer k, return the maximum number of consecutive 1's in the array if you can flip at most k 0's.
+
+	Example 1:
+
+	Input: nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2
+	Output: 6
+	Explanation: [1,1,1,0,0,1,1,1,1,1,1]
+	Bolded numbers were flipped from 0 to 1. The longest subarray is underlined.
+	
+	Code :  Time => O(n), Space => O(1)
+	class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int i=0,result = 0,zeroCount=0;
+        for(int j=0;j<nums.length;j++){
+            if(nums[j] == 0) zeroCount++;
+
+            while(zeroCount > k){
+                if(nums[i] == 0) zeroCount--;
+                i++;
+            }
+
+            result = Math.max(result,j-i+1);
+        }
+        return result;
+    }
+}
+
+41) Longest Subarray of 1's After Deleting One Element  (Topic : Sliding Window)
+	Given a binary array nums, you should delete one element from it.
+
+	Return the size of the longest non-empty subarray containing only 1's in the resulting array. Return 0 if there is no such subarray.
+
+	Example 1:
+
+	Input: nums = [1,1,0,1]
+	Output: 3
+	Explanation: After deleting the number in position 2, [1,1,1] contains 3 numbers with value of 1's.
+	
+	Code :   Time => O(n), Space => O(1)
+	class Solution {
+    public int longestSubarray(int[] nums) {
+        int i=0,zeroCount = 0,result = 0;
+        for(int j=0;j<nums.length;j++){
+            if(nums[j] == 0){
+                zeroCount++;
+            }
+            while(zeroCount > 1){
+                if(nums[i] == 0) zeroCount--;
+                i++;
+            }
+            result = Math.max(result,j-i);
+        }
+        return result;
+    }
+}
+
+42)  Majority Element  (Sorting)
+	Given an array nums of size n, return the majority element.
+
+	The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+
+	Example 1:
+
+	Input: nums = [3,2,3]
+	Output: 3
+	
+	Code :
+	class Solution {
+    public int majorityElement(int[] nums) {
+        int count = 1, ele = nums[0], res = nums[0];
+        for(int i=1;i<nums.length;i++){
+            if(nums[i] == ele) count++;
+            else count--;
+            if(count == 0){
+                ele = nums[i];
+                count = 1;
+            }
+        }
+
+        count = 0;
+        for(int i=0;i<nums.length;i++){
+            if(ele == nums[i]) count++;
+        }
+
+        if(count > nums.length/2) return ele;
+        return -1;
+    }
+}
+
+43) 
+
+
+
+
 
 
 
